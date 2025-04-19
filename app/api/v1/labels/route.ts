@@ -23,7 +23,10 @@ export async function POST(request: NextRequest) {
   }
 
   const body = await request.json();
-  const data = await createLabel(body);
+  const data = await createLabel({
+    ...body,
+    userId: session.user.id
+  });
 
   return NextResponse.json(data);
 }

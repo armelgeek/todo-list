@@ -11,8 +11,7 @@ export const ListFormSchema = createInsertSchema(lists, {
   id: true,
   userId: true,
   name: true,
-  slug: true,
-  order: true
+  slug: true
 });
 
 export type List = z.infer<typeof ListSelectSchema>;

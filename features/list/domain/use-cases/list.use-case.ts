@@ -1,5 +1,5 @@
 import 'server-only';
-import { eq, sql } from 'drizzle-orm';
+import { eq, max, sql } from 'drizzle-orm';
 import slugify from 'slugify';
 import { db } from '@/drizzle/db';
 import { lists } from '@/drizzle/schema/list';
@@ -16,7 +16,7 @@ export const listUseCase = new UseCase<List, ListPayload, unknown>({
   name: 'List',
   schema: ListFormSchema,
   operations: {
-    async create(data: ListPayload) {
+    async create(data: ListPayload & {userId: string}) {
       const slug = slugify(data.name, { lower: true });
       const existingList = await db.query.lists.findFirst({
         where: eq(lists.slug, slug),
@@ -25,9 +25,15 @@ export const listUseCase = new UseCase<List, ListPayload, unknown>({
       if (existingList) {
         throw new Error('List with this name already exists');
       }
+      const result = await db
+      .select({ maxOrder: max(lists.order) })
+      .from(lists)
+      .where(eq(lists.userId,data.userId));
+      const nextOrder = (result[0]?.maxOrder ?? 0) + 1;
+    
       const [list] = await db
         .insert(lists)
-        .values({ ...data, slug })
+        .values({ ...data, slug,  order: nextOrder })
         .returning();
         
       return list;

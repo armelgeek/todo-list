@@ -12,5 +12,13 @@ export const API_ENDPOINTS = {
     detail: (slug: string) => `/categories/${slug}`,
     update: (slug: string) => `/categories/${slug}`,
     delete: (slug: string) => `/categories/${slug}`,
+  },
+  labels: {
+    base: '/labels',
+    list: (qs: string) => `/labels${qs}`,
+    create: '/labels',
+    detail: (slug: string) => `/labels/${slug}`,
+    update: (slug: string) => `/labels/${slug}`,
+    delete: (slug: string) => `/labels/${slug}`,
   }
 } as const;

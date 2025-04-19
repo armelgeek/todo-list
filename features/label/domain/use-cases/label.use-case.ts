@@ -82,6 +82,7 @@ export const labelUseCase = new UseCase<Label, LabelPayload, unknown>({
           id: labels.id,
           name: labels.name,
           slug: labels.slug,
+          color: labels.color,
           createdAt: labels.createdAt,
           updatedAt: labels.updatedAt,
         })

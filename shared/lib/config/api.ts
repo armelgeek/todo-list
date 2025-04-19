@@ -29,4 +29,13 @@ export const API_ENDPOINTS = {
     update: (slug: string) => `/lists/${slug}`,
     delete: (slug: string) => `/lists/${slug}`,
   },
+,
+  tasks: {
+    base: '/tasks',
+    list: (qs: string) => `/tasks${qs}`,
+    create: '/tasks',
+    detail: (slug: string) => `/tasks/${slug}`,
+    update: (slug: string) => `/tasks/${slug}`,
+    delete: (slug: string) => `/tasks/${slug}`,
+  },
 } as const;

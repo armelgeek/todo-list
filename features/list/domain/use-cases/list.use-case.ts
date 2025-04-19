@@ -2,60 +2,59 @@ import 'server-only';
 import { eq, sql } from 'drizzle-orm';
 import slugify from 'slugify';
 import { db } from '@/drizzle/db';
-import { labels } from '@/drizzle/schema/label';
+import { lists } from '@/drizzle/schema/list';
 import { Filter } from '@/shared/lib/types/filter';
 import { calculatePagination } from '@/shared/lib/utils/calculate-pagination';
 import { createPagination } from '@/shared/lib/utils/create-pagination';
 import { filterOrderByClause } from '@/shared/lib/utils/filter-order-by-clause';
 import { filterWhereClause } from '@/shared/lib/utils/filter-where-clause';
 import { UseCase } from '@/shared/lib/use-cases';
-import { Label, LabelPayload } from '../../config/label.type';
-import { LabelFormSchema } from '../../config/label.schema';
+import { List, ListPayload } from '../../config/list.type';
+import { ListFormSchema } from '../../config/list.schema';
 
-export const labelUseCase = new UseCase<Label, LabelPayload, unknown>({
-  name: 'Label',
-  schema: LabelFormSchema,
+export const listUseCase = new UseCase<List, ListPayload, unknown>({
+  name: 'List',
+  schema: ListFormSchema,
   operations: {
-    async create(data: LabelPayload) {
+    async create(data: ListPayload) {
       const slug = slugify(data.name, { lower: true });
-      
-      const existingLabel = await db.query.labels.findFirst({
-        where: eq(labels.slug, slug),
+      const existingList = await db.query.lists.findFirst({
+        where: eq(lists.slug, slug),
       });
       
-      if (existingLabel) {
-        throw new Error('Label with this name already exists');
+      if (existingList) {
+        throw new Error('List with this name already exists');
       }
-      const [label] = await db
-        .insert(labels)
+      const [list] = await db
+        .insert(lists)
         .values({ ...data, slug })
         .returning();
         
-      return label;
+      return list;
     },
     
     async getById(slug: string) {
-      const label = await db.query.labels.findFirst({
-        where: eq(labels.slug, slug)
+      const list = await db.query.lists.findFirst({
+        where: eq(lists.slug, slug)
       });
-      return label ?? null;
+      return list ?? null;
     },
     
-    async update(slug: string, data: LabelPayload) {
+    async update(slug: string, data: ListPayload) {
       await db
-        .update(labels)
+        .update(lists)
         .set({ ...data, updatedAt: sql`NOW()` })
-        .where(eq(labels.slug, slug));
+        .where(eq(lists.slug, slug));
       
-      return { message: 'Label updated successfully' };
+      return { message: 'List updated successfully' };
     },
     
     async delete(slug: string) {
       await db
-        .delete(labels)
-        .where(eq(labels.slug, slug));
+        .delete(lists)
+        .where(eq(lists.slug, slug));
       
-      return { message: 'Label deleted successfully' };
+      return { message: 'List deleted successfully' };
     },
     
     async list(filter: Filter) {
@@ -72,7 +71,7 @@ export const labelUseCase = new UseCase<Label, LabelPayload, unknown>({
         .select({
           count: sql<number>`count(*)`,
         })
-        .from(labels)
+        .from(lists)
         .where(conditions);
 
       const { currentPage, itemsPerPage, offset } = calculatePagination(filter.page, filter.pageSize);
@@ -80,14 +79,14 @@ export const labelUseCase = new UseCase<Label, LabelPayload, unknown>({
 
       const data = await db
         .select({
-          id: labels.id,
-          name: labels.name,
-          slug: labels.slug,
-          color: labels.color,
-          createdAt: labels.createdAt,
-          updatedAt: labels.updatedAt,
+          id: lists.id,
+          name: lists.name,
+          slug: lists.slug,
+          order: lists.order,
+          createdAt: lists.createdAt,
+          updatedAt: lists.updatedAt,
         })
-        .from(labels)
+        .from(lists)
         .where(conditions)
         .orderBy(sort)
         .limit(itemsPerPage)

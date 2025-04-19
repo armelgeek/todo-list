@@ -1478,10 +1478,17 @@ const generateDomainOnly = async (name) => {
     await ensureDirectoryExists(path.join(featureDir, 'domain/use-cases'));
     await generateUseCases(name, schema, featureDir);
     await generateService(name, featureDir);
+    const apiConfigPath = path.join(process.cwd(), 'shared/lib/config/api.ts');
+    if (fs.existsSync(apiConfigPath)) {
+      await updateApiEndpoints(name, apiConfigPath);
+    } else {
+      console.log(chalk.yellow(`⚠️ API config file not found at ${apiConfigPath}, skipping update`));
+    }
     console.log(chalk.green(`✅ Generated domain files for ${name}`));
   } catch (error) {
     console.error(chalk.red(`Error generating domain: ${error.message}`));
   }
+
 };
 
 // Fonction pour générer uniquement les hooks

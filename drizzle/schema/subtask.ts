@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { boolean, integer, pgTable, text, uuid, varchar } from "drizzle-orm/pg-core";
+import { boolean, integer, pgTable, text, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 import { tasks } from "./task";
 import { users } from "./auth";
 
@@ -11,5 +11,7 @@ export const subtasks = pgTable('subtasks', {
     name: text('name').notNull(),
     slug: varchar('slug', { length: 50 }).notNull().unique(),
     isComplete: boolean('is_complete').default(false).notNull(),
+    createdAt: timestamp('created_at', { mode: 'string' }).notNull().defaultNow(),
+    updatedAt: timestamp('updated_at', { mode: 'string' }).notNull().defaultNow(),
   });
   

@@ -7,9 +7,13 @@ export const LabelSelectSchema = createSelectSchema(labels);
 export const LabelFormSchema = createInsertSchema(labels, {
   id: (s) => s,
   userId: (s) => s,
+
 }).pick({
   id: true,
   userId: true,
+  name: true,
+  color: true,
+
 });
 
 export type Label = z.infer<typeof LabelSelectSchema>;

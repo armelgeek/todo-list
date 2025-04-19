@@ -10,5 +10,6 @@ export class TaskServiceImpl extends BaseServiceImpl<Task, TaskPayload> {
   protected serializeParams(filter: Filter): string {
     return taskSearch.serialize(filter);
   }
+  
 }
 export const taskService = new TaskServiceImpl();

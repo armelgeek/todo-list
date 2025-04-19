@@ -29,7 +29,6 @@ export const API_ENDPOINTS = {
     update: (slug: string) => `/lists/${slug}`,
     delete: (slug: string) => `/lists/${slug}`,
   },
-,
   tasks: {
     base: '/tasks',
     list: (qs: string) => `/tasks${qs}`,
@@ -37,5 +36,6 @@ export const API_ENDPOINTS = {
     detail: (slug: string) => `/tasks/${slug}`,
     update: (slug: string) => `/tasks/${slug}`,
     delete: (slug: string) => `/tasks/${slug}`,
+    taskLabel: (taskId: string, labelId: string) => `/tasks/${taskId}/label/${labelId}`
   },
 } as const;

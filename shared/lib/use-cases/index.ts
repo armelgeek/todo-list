@@ -12,21 +12,21 @@ export interface UseCaseOperations<T, P, R> {
 }
 
 
-export interface UseCaseOptions<T, P, R> {
+export interface UseCaseOptions<T, P, R, O> {
   name: string;
   schema?: z.ZodType<P>;
-  operations: UseCaseOperations<T, P, R>;
+  operations: UseCaseOperations<T, P, R> & O;
 }
 
-export class UseCase<T, P, R> {
+export class UseCase<T, P, R, O = object> {
   private readonly name: string;
   private readonly schema?: z.ZodType<P>;
-  private readonly operations: UseCaseOperations<T, P, R>;
+  private readonly operations: UseCaseOperations<T, P, R> & O;
 
-  constructor(options: UseCaseOptions<T, P, R>) {
+  constructor(options: UseCaseOptions<T, P, R,O>) {
     this.name = options.name;
     this.schema = options.schema;
-    this.operations = options.operations;
+    this.operations = options.operations as UseCaseOperations<T, P, R> & O;
   }
 
 

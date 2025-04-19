@@ -1,4 +1,12 @@
-
 export { users, sessions, accounts, verifications } from './auth';
 export { categories } from './categories';
-export { products} from './product'
+export { lists } from './list';
+export { tasks } from './task';
+export { subtasks } from './subtask';
+export { labels } from './label';
+export { taskLabels } from './taskLabel';
+export { usersRelations } from './usersRelation';
+export { taskLabelsRelations } from './taskLabelsRelation';
+export { listsRelations } from './listsRelation';
+export { labelsRelations } from './labelsRelation';
+export { subtasksRelations } from './subtasksRelation';

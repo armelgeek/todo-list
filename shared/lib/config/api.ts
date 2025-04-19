@@ -38,4 +38,12 @@ export const API_ENDPOINTS = {
     delete: (slug: string) => `/tasks/${slug}`,
     taskLabel: (taskId: string, labelId: string) => `/tasks/${taskId}/label/${labelId}`
   },
+  subtasks: {
+    base: '/subtasks',
+    list: (qs: string) => `/subtasks${qs}`,
+    create: (slug: string) => `/tasks/${slug}/subtasks`,
+    detail: (slug: string) => `/subtasks/${slug}`,
+    update: (slug: string) => `/subtasks/${slug}`,
+    delete: (slug: string) => `/subtasks/${slug}`,
+  },
 } as const;

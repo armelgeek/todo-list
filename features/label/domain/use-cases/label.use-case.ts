@@ -16,7 +16,7 @@ export const labelUseCase = new UseCase<Label, LabelPayload, unknown>({
   name: 'Label',
   schema: LabelFormSchema,
   operations: {
-    async create(data: LabelPayload) {
+    async create(data: LabelPayload  & {userId: string}) {
       const slug = slugify(data.name, { lower: true });
       
       const existingLabel = await db.query.labels.findFirst({

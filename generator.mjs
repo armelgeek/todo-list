@@ -1162,7 +1162,7 @@ const generateFormWithRelationships = async (name, schema, relationships, output
   // Form template with relationship fields
   const formContent = `import { Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Form } from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { ControlledTextInput } from '@/shared/components/molecules/form/ControlledTextInput';
 import { useFormHandler } from '@/shared/hooks/use-form-handler';${relationships.length > 0 ? '\n' + relationImports : ''}
 

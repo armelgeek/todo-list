@@ -5,9 +5,8 @@ import { PaginatedResponse } from '@/shared/lib/types/pagination';
 export const LabelSelectSchema = createSelectSchema(labels);
 
 export const LabelFormSchema = createInsertSchema(labels, {
-  id: (s) => s,
-  userId: (s) => s,
-
+  name: z.string().min(2),
+  color: z.string().min(2),
 }).pick({
   id: true,
   userId: true,

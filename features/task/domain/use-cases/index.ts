@@ -21,3 +21,6 @@ export async function deleteTask(slug: string) {
 export async function getTasks(filter: Filter) {
     return taskUseCase.list(filter);
 }
+export async function createTaskLabel(taskId: string, labelId:string){
+    return taskUseCase.execute('createTaskLabel', taskId,labelId);
+}

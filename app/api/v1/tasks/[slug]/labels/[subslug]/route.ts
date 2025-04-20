@@ -1,6 +1,4 @@
 import { auth } from "@/auth";
-import { db } from "@/drizzle/db";
-import { labels, taskLabels, tasks } from "@/drizzle/schema";
 import { createTaskLabel } from "@/features/task/domain/use-cases";
 import { eq } from "drizzle-orm";
 import { headers } from "next/headers";

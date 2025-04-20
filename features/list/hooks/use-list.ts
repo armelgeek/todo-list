@@ -1,7 +1,7 @@
 import { listService } from '../domain/list.service';
 import { List, ListPayload } from '../config/list.type';
 import { Filter } from '@/shared/lib/types/filter';
-import { useDetail, useList, useMutations } from '@/shared/lib/react-query/query-hooks';
+import { useDetail, useList as useListing, useMutations } from '@/shared/lib/react-query/query-hooks';
 
 export const LIST_KEYS = {
   all: ['lists'] as const,
@@ -12,7 +12,7 @@ export const LIST_KEYS = {
 };
 
 export const useLists = (filters: Filter) => {
-  return useList<List>(
+  return useListing<List>(
     LIST_KEYS,
     listService,
     filters

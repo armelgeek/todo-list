@@ -61,7 +61,6 @@
     "@tanstack/react-table": "^8.20.6",
     "@uploadthing/react": "^7.1.5",
     "better-auth": "^1.1.15",
-    "swagger-ui-react": "^5.21.0",
     "chalk": "^5.4.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -87,17 +86,21 @@
     "react-day-picker": "^8.10.1",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",
+    "react-hot-toast": "^2.5.2",
+    "react-mentions": "^4.4.10",
     "react-resizable-panels": "^2.1.7",
     "recharts": "^2.15.1",
     "redis": "^4.7.0",
     "resend": "^4.1.2",
     "slugify": "^1.6.6",
     "sonner": "^1.7.2",
+    "swagger-ui-react": "^5.21.0",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
     "uploadthing": "^7.4.4",
     "vaul": "^1.1.2",
-    "zod": "^3.24.1"
+    "zod": "^3.24.1",
+    "zustand": "^5.0.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -108,6 +111,8 @@
     "@types/qs": "^6.9.18",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/react-mentions": "^4.4.1",
+    "@types/swagger-ui-react": "^5.18.0",
     "babel-plugin-react-compiler": "^19.0.0-beta-27714ef-20250124",
     "drizzle-kit": "^0.30.3",
     "eslint": "^9",
@@ -116,7 +121,6 @@
     "prettier": "^3.4.2",
     "prettier-plugin-tailwindcss": "^0.6.11",
     "tailwindcss": "^3.4.1",
-    "@types/swagger-ui-react": "^5.18.0",
     "tsx": "^4.19.2",
     "typescript": "^5"
   }

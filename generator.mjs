@@ -1200,7 +1200,7 @@ ${relationFields}
             {isSubmitting ? (
               <Loader2 className="mr-2 size-4 animate-spin" />
             ) : initialData ? (
-              'Update ${pascalName}'
+              'Save changes'
             ) : (
               'Create ${pascalName}'
             )}

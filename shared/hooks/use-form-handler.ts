@@ -8,6 +8,7 @@ interface UseFormHandlerProps<T> {
   initialValues?: Partial<T>;
   onSubmit: (values: T) => Promise<void>;
   onSuccess?: () => void;
+  onCancel?: () => void;
   resetAfterSubmit?: boolean;
 }
 
@@ -16,10 +17,12 @@ export const useFormHandler = <T extends object>({
   initialValues,
   onSubmit,
   onSuccess,
+  onCancel, 
   resetAfterSubmit = false,
 }: UseFormHandlerProps<T>): {
   form: UseFormReturn<T>;
   handleSubmit: (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => Promise<void>;
+  handleCancel: () => void; 
   isSubmitting: boolean;
   errors: UseFormReturn<T>['formState']['errors'];
 } => {
@@ -53,9 +56,18 @@ export const useFormHandler = <T extends object>({
       console.error('Form submission error:', error);
     }
   };
+
+  const handleCancel = () => {
+    if (onCancel) {
+      onCancel();
+    }
+    form.reset(initialValues as DefaultValues<T>);
+  };
+
   return {
     form,
     handleSubmit,
+    handleCancel,
     isSubmitting: form.formState.isSubmitting,
     errors: form.formState.errors,
   };

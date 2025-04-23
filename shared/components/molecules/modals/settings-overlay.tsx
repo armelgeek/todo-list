@@ -5,10 +5,10 @@ import * as React from 'react';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Drawer, DrawerContent } from '@/components/ui/drawer';
 
-import { useLayoutStore } from '@/store/layout-store';
-import { useMediaQuery } from '@/hooks/use-media-query';
 
 import SettingsPanel from '@/components/settings/settings-panel';
+import { useMediaQuery } from '@/shared/hooks/use-media-query';
+import { useLayoutStore } from '@/shared/store/layout-store';
 
 export default function SettingsOverlay() {
   const [isOpen, setOpen] = React.useState(false);
@@ -17,7 +17,11 @@ export default function SettingsOverlay() {
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
   React.useEffect(() => {
-    showSettingsOverlay ? setOpen(true) : setOpen(false);
+    if (showSettingsOverlay) {
+      setOpen(true);
+    } else {
+      setOpen(false);
+    }
   }, [showSettingsOverlay]);
 
   if (isDesktop) {
@@ -30,7 +34,6 @@ export default function SettingsOverlay() {
     );
   }
 
-  // A workaround to manage drawer state since it has different behavior than the Dialog
   const onOpenChange = () => {
     setOpen(!isOpen);
     if (!isOpen) {

@@ -1,26 +1,23 @@
 import * as React from 'react';
-import useSWR from 'swr';
 
-import type { Label, List } from '@/types';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Drawer, DrawerContent } from '@/components/ui/drawer';
-
-import TaskForm from '@/components/task-form';
-
-import { useLayoutStore } from '@/store/layout-store';
-import { useMediaQuery } from '@/hooks/use-media-query';
-import { fetcher, LABELS_KEY, LISTS_KEY } from '@/lib/api';
+import { useMediaQuery } from '@/shared/hooks/use-media-query';
+import { useLayoutStore } from '@/shared/store/layout-store';
+import { Add as TaskForm } from '@/features/task/components/organisms/add';
 
 export default function TaskOverlay() {
   const [isOpen, setOpen] = React.useState(false);
-  const { data: lists } = useSWR<List[]>(LISTS_KEY, fetcher);
-  const { data: labels } = useSWR<Label[]>(LABELS_KEY, fetcher);
-  const { showTaskOverlay, toggleTaskOverlay, setTaskOverlay } =
-    useLayoutStore();
+  const { showTaskOverlay, toggleTaskOverlay, setTaskOverlay } = useLayoutStore();
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
+
   React.useEffect(() => {
-    showTaskOverlay ? setOpen(true) : setOpen(false);
+    if (showTaskOverlay) {
+      setOpen(true);
+    } else {
+      setOpen(false);
+    }
   }, [showTaskOverlay]);
 
   React.useEffect(() => {
@@ -37,15 +34,18 @@ export default function TaskOverlay() {
 
   if (isDesktop) {
     return (
-      <Dialog open={showTaskOverlay} onOpenChange={toggleTaskOverlay} modal>
-        <DialogContent className="max-w-xl h-fit overflow-y-auto max-h-screen">
-          <TaskForm lists={lists || []} labels={labels || []} />
+      <Dialog
+        open={showTaskOverlay}
+        onOpenChange={toggleTaskOverlay}
+        modal
+      >
+        <DialogContent className="h-fit max-h-screen max-w-xl overflow-y-auto">
+          <TaskForm />
         </DialogContent>
       </Dialog>
     );
   }
 
-  // A workaround to manage drawer state since it has different behavior than the Dialog
   const onOpenChange = () => {
     setOpen(!isOpen);
     if (!isOpen) {
@@ -54,10 +54,13 @@ export default function TaskOverlay() {
   };
 
   return (
-    <Drawer open={showTaskOverlay} onOpenChange={onOpenChange}>
+    <Drawer
+      open={showTaskOverlay}
+      onOpenChange={onOpenChange}
+    >
       <DrawerContent>
         <div className="max-h-screen overflow-y-auto">
-          <TaskForm lists={lists || []} labels={labels || []} />
+          <TaskForm />
         </div>
       </DrawerContent>
     </Drawer>

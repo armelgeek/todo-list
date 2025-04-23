@@ -22,6 +22,6 @@ export const TaskFormSchema = createInsertSchema(tasks, {
 
 export type Task = z.infer<typeof TaskSelectSchema>;
 
-export type TaskPayload = z.infer<typeof TaskFormSchema>;
+export type TaskPayload = z.infer<typeof TaskFormSchema & {labelIds:string[]}>;
 
 export type PaginatedPage = PaginatedResponse<Task>;

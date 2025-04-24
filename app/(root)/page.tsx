@@ -1,6 +1,3 @@
-import Heading from '@/shared/components/atoms/heading';
-import Hero from '@/shared/components/atoms/hero';
-import NewsLetter from '@/shared/components/atoms/newsletter';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -11,12 +8,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <Hero/>
-      <Heading text1={'TEXT 1'} text2={'TEXT 2'} className='my-8 text-center'>
-         lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta cum fugiat distinctio corporis
-      </Heading>
-
-      <NewsLetter/>
+     
     </>
   );
 }

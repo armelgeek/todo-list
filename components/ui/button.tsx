@@ -19,6 +19,8 @@ const buttonVariants = cva(
           'bg-secondary text-secondary-foreground shadow-sm shadow-black/5 hover:bg-secondary/80',
         ghost: 'hover:bg-accent hover:text-accent-foreground',
         link: 'text-primary underline-offset-4 hover:underline',
+        picker:
+        'bg-transparent hover:bg-transparent text-muted-foreground hover:text-foreground'
       },
       size: {
         default: 'h-9 px-4 py-2',
@@ -26,6 +28,7 @@ const buttonVariants = cva(
         lg: 'h-10 rounded-lg px-8',
         icon: 'h-9 w-9',
       },
+      
     },
     defaultVariants: {
       variant: 'default',

@@ -22,8 +22,38 @@ import { useMounted } from '@/shared/hooks/use-mounted';
 import { useLayoutStore } from '@/shared/store/layout-store';
 import { useSettingsStore } from '@/shared/store/settings-store';
 import { useLists } from '@/features/list/hooks/use-list';
+import { Plus } from 'lucide-react';
+import { cn } from '@/shared/lib/utils';
+import { Separator } from '@radix-ui/react-separator';
+import ListItem from '@/features/list/components/molecules/list-item';
+import { SidebarItem } from '@/shared/lib/constants/app.constant';
 
-
+const platform: [
+      {
+        id: 'inbox',
+        label: 'Inbox',
+        icon: null,
+        href: '/inbox',
+      },
+      {
+        id: 'today',
+        label: 'Today',
+        icon: null,
+        href: '/today',
+      },
+      {
+        id: 'upcoming',
+        label: 'Upcoming',
+        icon: null,
+        href: '/upcoming',
+      },
+      {
+        id: 'labels',
+        label: 'Labels',
+        icon: null,
+        href: '/labels',
+      },
+    ];
 export default function SideNav() {
   const path = usePathname();
   const isMounted = useMounted();
@@ -31,21 +61,11 @@ export default function SideNav() {
   const { settings, setSettings } = useSettingsStore();
   const { data: lists } = useLists({});
 
-  React.useEffect(() => {
-    const dW = Object.values(widgetItems).map((i) => i.id);
-    const dS = Object.values(sidebarItems).map((i) => i.id);
-
-   /** if (!settings.sidebar || !settings.widgets)
-      setSettings({ ...settings, sidebar: dS, widgets: dW });
-    */
-  }, [settings, setSettings]);
-
   if (!isMounted) {
     return <p>Loading ...</p>;
   }
 
-  if (error) return <div>Failed to load</div>;
-
+ 
   return (
     <nav className="px-4 pb-4 min-h-full flex flex-col justify-between">
       <div>
@@ -58,30 +78,19 @@ export default function SideNav() {
             onClick={toggleTaskOverlay}
           >
             <div className="bg-primary rounded-full p-1 ml-0.5 hover:bg-transparent">
-              <Icons.Add className="h-3 w-3 text-white" />
+              <Plus className="h-3 w-3 text-white" />
             </div>
             <span className={cn('ml-2', !showLeftSidebar && 'md:hidden')}>
               New task
             </span>
           </Button>
-          <SearchMenu />
+       
         </div>
         <div className="space-y-1 mt-2 overflow-y-auto max-h-screen">
-          {config.platform.links.map(
+          {platform.links.map(
             (item) =>
               settings.sidebar.includes(item.id as SidebarItem) && (
-                <RetainQueryLink
-                  key={item.href}
-                  href={item.href}
-                  className={cn(
-                    buttonVariants({ variant: 'ghost' }),
-                    'flex justify-start px-2 w-full text-muted-foreground',
-                    path === item.href ||
-                      (item.href === '/lists' && path.includes('lists'))
-                      ? 'bg-primary/10 text-foreground'
-                      : '',
-                  )}
-                >
+                <>
                   <TooltipProvider delayDuration={100}>
                     <Tooltip>
                       <TooltipTrigger className="flex items-center">
@@ -97,7 +106,7 @@ export default function SideNav() {
                   <span className={cn('ml-2', !showLeftSidebar && 'md:hidden')}>
                     {item.label}
                   </span>
-                </RetainQueryLink>
+                </>
               ),
           )}
         </div>
@@ -120,14 +129,13 @@ export default function SideNav() {
                 {lists ? (
                   lists?.map((list) => <ListItem list={list} key={list.id} />)
                 ) : (
-                  <LoadingLists />
+                  <p>Loading ....</p>
                 )}
               </AccordionContent>
             </AccordionItem>
           </Accordion>
         )}
       </div>
-      <ToggleTheme />
     </nav>
   );
 }

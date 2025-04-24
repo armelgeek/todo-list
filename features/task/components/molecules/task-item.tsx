@@ -72,7 +72,7 @@ function TaskItem({ task, lists, type = 'list', labels, date }: TaskItemProps) {
     <TaskContainer className="pb-2 pt-3 px-3 group group/task">
       <div className="flex-gap items-start">
         <div className="pt-1">
-          <StatusCheckbox task={task} />
+          {/**<StatusCheckbox task={task} />**/}
         </div>
         <div className="w-full">
           <div className="flex-between w-full">

@@ -9,9 +9,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { List } from '@/features/list/config/list.type';
+import { ListForm } from '@/features/list/components/molecules/list-form';
 
-import type { List } from '@/types';
-import ListForm from '@/components/list-form';
 
 interface ModalProps {
   list?: List;
@@ -38,7 +38,7 @@ export default function ListModal({ list, children }: ModalProps) {
             </DialogDescription>
           )}
         </DialogHeader>
-        <ListForm list={list} onClose={close} />
+        <ListForm initialData={list} onClose={close} />
       </DialogContent>
     </Dialog>
   );

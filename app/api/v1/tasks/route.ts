@@ -6,8 +6,8 @@ import { createSearchParams } from '@/shared/domain/base.search-param';
 import { createTask, getTasks } from '@/features/task/domain/use-cases';
 
 export async function GET(request: NextRequest) {
-   const searchParams = createSearchParams();
-   const filter = searchParams.load(request);
+  const searchParams = createSearchParams();
+  const filter = searchParams.load(request);
   const data = await getTasks(filter);
 
   return NextResponse.json(data);
@@ -23,7 +23,10 @@ export async function POST(request: NextRequest) {
   }
 
   const body = await request.json();
-  const data = await createTask(body);
+  const data = await createTask({
+    ...body,
+    userId: session.user.id
+  });
 
   return NextResponse.json(data);
 }

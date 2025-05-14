@@ -66,8 +66,8 @@ export class UseCase<T, P, R, O = object> {
 
   async create(data: P): Promise<R> {
     this.checkOperation('create');
-    const validData = this.validate(data);
-    return this.operations.create!(validData);
+   // const validData = this.validate(data);
+    return this.operations.create!(data);
   }
 
   async getById(id: string): Promise<T> {

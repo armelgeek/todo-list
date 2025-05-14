@@ -1,3 +1,4 @@
+"use client";
 import { TaskForm } from '../molecules/task-form';
 import { useTaskMutations } from '../../hooks/use-task';
 import { taskKeys } from '../../config/task.key';
@@ -30,7 +31,9 @@ export function Add({
     const realDate = data?.dueDate
       ? add(new Date(data.dueDate), { days: 1 })
       : data.dueDate;
-    await createTask({ ...data, dueDate: realDate });
+
+    console.log('due data', realDate);
+    await createTask({ ...data, dueDate: new Date(realDate) });
     /**if (data.labelIds?.length) {
       const labelPromises = data.labelIds.map((labelId) =>
         TaskService.addLabel({ taskId: createdTask.id, labelId }),

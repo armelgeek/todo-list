@@ -48,7 +48,7 @@ export const taskUseCase = new UseCase<Task, TaskPayload, unknown,CustomOperatio
       }
       const [task] = await db
         .insert(tasks)
-        .values({ ...data, slug, order: newOrder })
+        .values({ ...data, slug, order: newOrder , dueDate: new Date(data.dueDate!)})
         .returning();
 
       return task;

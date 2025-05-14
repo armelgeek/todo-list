@@ -49,7 +49,7 @@ export default function SideNav() {
 
   
     return (
-        <nav className="px-4 pb-4 min-h-full flex flex-col justify-between">
+        <nav className="flex flex-col justify-between px-4 pb-4 min-h-full">
             <div>
 
                 <div className="flex-gap">
@@ -59,15 +59,15 @@ export default function SideNav() {
                         className="flex justify-start px-2 w-full"
                         onClick={toggleTaskOverlay}
                     >
-                        <div className="bg-primary rounded-full p-1 ml-0.5 hover:bg-transparent">
-                            <Plus className="h-3 w-3 text-white" />
+                        <div className="bg-primary hover:bg-transparent ml-0.5 p-1 rounded-full">
+                            <Plus className="w-3 h-3 text-white" />
                         </div>
                         <span className={cn('ml-2', !showLeftSidebar && 'md:hidden')}>
                             New task
                         </span>
                     </Button>
                 </div>
-                <div className="space-y-1 mt-2 overflow-y-auto max-h-screen">
+                <div className="space-y-1 mt-2 max-h-screen overflow-y-auto">
                     {config.platform.links.map(
                         (item) =>
                             settings.sidebar.includes(item.id as SidebarItem) && (
@@ -75,8 +75,8 @@ export default function SideNav() {
                                     <TooltipProvider delayDuration={100}>
                                         <Tooltip>
                                             <TooltipTrigger className="flex items-center">
-                                                <div className="rounded-full p-1">
-                                                    <item.icon className="h-4 w-4" />
+                                                <div className="p-1 rounded-full">
+                                                    <item.icon className="w-4 h-4" />
                                                 </div>
                                             </TooltipTrigger>
                                             <TooltipContent>
@@ -95,16 +95,16 @@ export default function SideNav() {
                 {settings.sidebar.includes('lists') && (
                     <Accordion type="single" collapsible defaultValue="lists">
                         <AccordionItem value="lists">
-                            <div className="flex-between gap-1 px-3 mt-4">
+                            <div className="flex-between gap-1 mt-4 px-3">
                                 {showLeftSidebar && (
-                                    <div className="w-full flex-between">
-                                        <span className="text-muted-foreground text-xs whitespace-nowrap uppercase">
+                                    <div className="flex-between w-full">
+                                        <span className="text-muted-foreground text-xs uppercase whitespace-nowrap">
                                             Lists
                                         </span>
                                         <ListItem />
                                     </div>
                                 )}
-                                <AccordionTrigger className="hover:bg-muted rounded-full py-0 p-0.5" />
+                                <AccordionTrigger className="hover:bg-muted p-0.5 py-0 rounded-full" />
                             </div>
                             <AccordionContent>
                                 {lists ? (

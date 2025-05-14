@@ -7,8 +7,6 @@ import {
   ShoppingCart,
   CreditCard,
   TrendingUp,
-  Clock,
-  CheckCircle,
   AlertCircle,
   Info
 } from 'lucide-react';
@@ -74,8 +72,8 @@ export default function DashboardPage() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900" />
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="border-gray-900 border-b-2 rounded-full w-8 h-8 animate-spin" />
       </div>
     );
   }
@@ -83,14 +81,14 @@ export default function DashboardPage() {
   return (
     <div className="space-y-6 p-6">
       <div>
-        <h1 className="text-3xl font-bold">Tableau de bord</h1>
-        <p className="text-gray-500 mt-2">
+        <h1 className="font-bold text-3xl">Tableau de bord</h1>
+        <p className="mt-2 text-gray-500">
           Bienvenue dans votre espace d'administration
         </p>
       </div>
 
       {/* Statistiques */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
         <StatsCard
           title="Utilisateurs"
           value={stats?.totalUsers}
@@ -122,7 +120,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Graphiques */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="gap-6 grid grid-cols-1 lg:grid-cols-2">
         <ChartCard
           title="Ventes mensuelles"
           subtitle="Évolution des ventes sur les 6 derniers mois"
@@ -147,7 +145,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Activités récentes */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="gap-6 grid grid-cols-1 lg:grid-cols-3">
         <div className="lg:col-span-2">
           <ChartCard
             title="Tendances horaires"

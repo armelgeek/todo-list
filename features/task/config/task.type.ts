@@ -8,16 +8,13 @@ export const TaskFormSchema = createInsertSchema(tasks, {
   id: (s) => s,
   userId: (s) => s,
 }).pick({
-  id: true,
-  userId: true,
   listId: true,
   completedAt: true,
   name: true,
   description: true,
   dueDate: true,
   duration: true,
-  priority: true,
-  isComplete: true
+  priority: true
 });
 
 export type Task = z.infer<typeof TaskSelectSchema>;
